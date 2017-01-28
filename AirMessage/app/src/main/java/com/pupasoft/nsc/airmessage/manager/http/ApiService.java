@@ -1,8 +1,10 @@
 package com.pupasoft.nsc.airmessage.manager.http;
 
 import com.pupasoft.nsc.airmessage.dao.MessageItemCollectionDao;
+import com.pupasoft.nsc.airmessage.manager.MessageListManager;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 /**
@@ -11,6 +13,8 @@ import retrofit2.http.POST;
 public interface ApiService {
 
     @POST("submitloc")
-    Call<MessageItemCollectionDao> loadMessageList();
-    //TODO: Set Parameter
+    Call<MessageItemCollectionDao> loadMessageList(@Body MessageItemCollectionDao messageItemCollectionDao);
+
+    @POST("updatedata")
+    Call<MessageItemCollectionDao> updateMessageList(@Body MessageItemCollectionDao messageItemCollectionDao);
 }

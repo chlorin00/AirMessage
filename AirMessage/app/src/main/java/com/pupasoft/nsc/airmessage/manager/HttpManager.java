@@ -28,7 +28,7 @@ public class HttpManager {
         mContext = Contextor.getInstance().getContext();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://")             //TODO: set URL
+                .baseUrl("http://172.30.80.30:8080/location/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

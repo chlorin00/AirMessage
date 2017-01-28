@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.pupasoft.nsc.airmessage.dao.MessageItemCollectionDao;
 import com.pupasoft.nsc.airmessage.dao.MessageItemDao;
 import com.pupasoft.nsc.airmessage.manager.MessageListManager;
 import com.pupasoft.nsc.airmessage.view.MessageListItem;
@@ -13,18 +14,20 @@ import com.pupasoft.nsc.airmessage.view.MessageListItem;
  */
 public class MessageListAdapter extends BaseAdapter {
 
+    MessageItemCollectionDao dao;
+
     @Override
     public int getCount() {
-        if (MessageListManager.getInstance().getDao() == null)
+        if (dao == null)
             return 0;
-        if (MessageListManager.getInstance().getDao().getInformation() == null)
+        if (dao.getInformation() == null)
             return 0;
-        return MessageListManager.getInstance().getDao().getInformation().size();
+        return dao.getInformation().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return MessageListManager.getInstance().getDao().getInformation().get(position);
+        return dao.getInformation().get(position);
     }
 
     @Override
@@ -44,5 +47,9 @@ public class MessageListAdapter extends BaseAdapter {
         item.setTvMessage(dao.getStatement());
         item.setTvDate(dao.getDate());
         return item;
+    }
+
+    public void setDao(MessageItemCollectionDao dao) {
+        this.dao = dao;
     }
 }

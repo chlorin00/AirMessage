@@ -1,15 +1,54 @@
 package com.pupasoft.nsc.airmessage.dao;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by wong_ on 26-Jan-17.
  */
-public class MessageItemDao {
+public class MessageItemDao implements Parcelable{
     @SerializedName("id")           private int id;
     @SerializedName("date")         private String date;
     @SerializedName("locationid")   private int locationId;
     @SerializedName("statement")    private String statement;
+
+    public MessageItemDao() {
+
+    }
+
+    protected MessageItemDao(Parcel in) {
+        id = in.readInt();
+        date = in.readString();
+        locationId = in.readInt();
+        statement = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(date);
+        dest.writeInt(locationId);
+        dest.writeString(statement);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<MessageItemDao> CREATOR = new Creator<MessageItemDao>() {
+        @Override
+        public MessageItemDao createFromParcel(Parcel in) {
+            return new MessageItemDao(in);
+        }
+
+        @Override
+        public MessageItemDao[] newArray(int size) {
+            return new MessageItemDao[size];
+        }
+    };
 
     public int getId() {
         return id;
