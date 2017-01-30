@@ -1,6 +1,7 @@
 package com.pupasoft.nsc.airmessage.activity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
 import android.support.v4.widget.DrawerLayout;
@@ -8,6 +9,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.pupasoft.nsc.airmessage.R;
@@ -61,9 +64,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_message, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
+        if (item.getItemId() == R.id.writeMessage) {
+            //TODO: Create Function to open second activity
+            Intent intent = new Intent(this, WriteMessageActivity.class);
+            startActivity(intent);
+            Log.d("write message", "success");
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -71,4 +87,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
+
+
 }

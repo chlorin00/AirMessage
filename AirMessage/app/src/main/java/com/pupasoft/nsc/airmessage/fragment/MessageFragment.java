@@ -219,6 +219,7 @@ public class MessageFragment extends Fragment {
         @Override
         public void onResponse(Call<MessageItemCollectionDao> call, Response<MessageItemCollectionDao> response) {
             swipeRefreshLayout.setRefreshing(false);
+            Log.d("Loading Status", "Start");
             if (response.isSuccessful()) {
                 MessageItemCollectionDao dao = response.body();
 
@@ -226,10 +227,12 @@ public class MessageFragment extends Fragment {
                 View c = listView.getChildAt(0);
                 int top = c == null ? 0 : c.getTop();
 
-                if (mode == MODE_UPDATE)
+                if (mode == MODE_UPDATE) {
                     messageListManager.InsertDaoAtTop(dao);
-                else
+                }
+                else {
                     messageListManager.setDao(dao);
+                }
                 listAdapter.setDao(messageListManager.getDao());
                 listAdapter.notifyDataSetChanged();
 
@@ -237,8 +240,9 @@ public class MessageFragment extends Fragment {
                     int additionalSize =
                             (dao != null && dao.getInformation() != null) ? dao.getInformation().size() : 0;
                     listView.setSelectionFromTop(firstVisiblePosition + additionalSize, top);
-                    if (additionalSize > 0)
+                    if (additionalSize > 0) {
                         showButtonNewMessage();
+                    }
                 }
 
                 Log.d("Loading Status", "Success");
