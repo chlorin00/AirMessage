@@ -11,6 +11,7 @@ import com.google.gson.annotations.SerializedName;
 public class MessageItemDao implements Parcelable{
     @SerializedName("id")           private int id;
     @SerializedName("date")         private String date;
+    @SerializedName("name")         private String name;
     @SerializedName("locationid")   private int locationId;
     @SerializedName("statement")    private String statement;
 
@@ -64,6 +65,14 @@ public class MessageItemDao implements Parcelable{
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getLocationId() {

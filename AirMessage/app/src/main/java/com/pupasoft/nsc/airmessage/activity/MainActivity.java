@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         if (actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
         if (item.getItemId() == R.id.writeMessage) {
-            //TODO: Create Function to open second activity
             Intent intent = new Intent(this, WriteMessageActivity.class);
             startActivity(intent);
             Log.d("write message", "success");

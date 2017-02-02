@@ -1,6 +1,7 @@
 package com.pupasoft.nsc.airmessage.manager.http;
 
 import com.pupasoft.nsc.airmessage.dao.MessageItemCollectionDao;
+import com.pupasoft.nsc.airmessage.dao.SendMessageItemDao;
 import com.pupasoft.nsc.airmessage.manager.MessageListManager;
 
 import retrofit2.Call;
@@ -17,4 +18,7 @@ public interface ApiService {
 
     @POST("updatedata")
     Call<MessageItemCollectionDao> updateMessageList(@Body MessageItemCollectionDao messageItemCollectionDao);
+
+    @POST("writeinfor")
+    Call<SendMessageItemDao>    postMessageItem(@Body SendMessageItemDao sendMessageItemDao);
 }

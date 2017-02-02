@@ -44,6 +44,7 @@ public class MessageListAdapter extends BaseAdapter {
             item = new MessageListItem(parent.getContext());
 
         MessageItemDao dao = (MessageItemDao) getItem(position);
+        item.setTvName(dao.getName());
         item.setTvMessage(dao.getStatement());
         item.setTvDate(dao.getDate());
         return item;
