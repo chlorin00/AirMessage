@@ -15,14 +15,14 @@
         android:entries="@array/categories"
         android:spinnerMode="dialog" />
 
-        <EditText
-            android:id="@+id/editWriteMessage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:focusableInTouchMode="true"
-            android:gravity="start"
-            android:hint="write message here."
-            android:label="Message"
-            android:textSize="20sp" />
+    <EditText
+        android:id="@+id/editWriteMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:gravity="start"
+        android:hint="write message here."
+        android:label="Message"
+        android:textSize="20sp" />
 
 </LinearLayout>

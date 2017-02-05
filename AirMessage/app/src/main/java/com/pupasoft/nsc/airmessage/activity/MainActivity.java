@@ -63,22 +63,16 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_message, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_message, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
-        if (item.getItemId() == R.id.writeMessage) {
-            Intent intent = new Intent(this, WriteMessageActivity.class);
-            startActivity(intent);
-            Log.d("write message", "success");
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 

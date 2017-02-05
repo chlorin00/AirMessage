@@ -132,58 +132,60 @@ public class WriteMessageFragment extends Fragment {
         inflater.inflate(R.menu.menu_write_message, menu);
 
         MenuItem menuItem = (MenuItem) menu.findItem(R.id.postMessage);
-        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                setPostMessage(sendingMessageManager.getDao());
-                Log.i("Check information", sendingMessageManager.getDao().getStatement());
-                Log.i("Check information", sendingMessageManager.getDao().getDate());
-
-                Call<SendMessageItemDao> call = HttpManager.getInstance().getService()
-                        .postMessageItem(sendingMessageManager.getDao());
-                call.enqueue(new Callback<SendMessageItemDao>() {
-                    @Override
-                    public void onResponse(Call<SendMessageItemDao> call, Response<SendMessageItemDao> response) {
-                        if (response.isSuccessful()) {
-                            Log.d("Post Message", response.body().toString());
-                            Toast.makeText(getContext(),
-                                    "Post message complete.",
-                                    Toast.LENGTH_SHORT)
-                                    .show();
-                            getActivity().finish();
-                        } else {
-                            try {
-                                Log.d("Post Message", response.errorBody().string());
-                                Toast.makeText(getContext(),
-                                        "Can't connect to server.",
-                                        Toast.LENGTH_SHORT)
-                                        .show();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<SendMessageItemDao> call, Throwable t) {
-                        Log.d("Post Message", "Fail--" + t.toString());
-                        Toast.makeText(getContext(),
-                                "Disconnect to server.",
-                                Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                });
-                return true;
-            }
-        });
+        menuItem.setOnMenuItemClickListener(menuItemClickListener);
     }
 
     /*******************
      * listener/method *
      *******************/
 
+    final MenuItem.OnMenuItemClickListener menuItemClickListener = new MenuItem.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            setPostMessage(sendingMessageManager.getDao());
+            Log.i("Check information", sendingMessageManager.getDao().getStatement());
+            Log.i("Check information", sendingMessageManager.getDao().getDate());
+
+            Call<SendMessageItemDao> call = HttpManager.getInstance().getService()
+                    .postMessageItem(sendingMessageManager.getDao());
+            call.enqueue(new SendMessageCallBack());
+            return true;
+        }
+    };
+
     /***************
      * inner class *
      ***************/
+
+    class SendMessageCallBack implements Callback<SendMessageItemDao> {
+
+        @Override
+        public void onResponse(Call<SendMessageItemDao> call, Response<SendMessageItemDao> response) {
+            if (response.isSuccessful()) {
+                Log.d("Post Message", response.body().toString());
+                toastCallBack("Post message complete.");
+                getActivity().finish();
+            } else {
+                try {
+                    Log.d("Post Message", response.errorBody().string());
+                    toastCallBack("Can't connect to server.");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<SendMessageItemDao> call, Throwable t) {
+            Log.d("Post Message", "Fail -- " + t.toString());
+            toastCallBack("Disconnect to server.");
+        }
+
+        private void toastCallBack(String text) {
+            Toast.makeText(getContext(),
+                    text, Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
 
 }

@@ -1,10 +1,15 @@
 package com.pupasoft.nsc.airmessage.fragment;
 
+import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -15,6 +20,7 @@ import android.widget.ListView;
 
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import com.pupasoft.nsc.airmessage.R;
+import com.pupasoft.nsc.airmessage.activity.WriteMessageActivity;
 import com.pupasoft.nsc.airmessage.adapter.MessageListAdapter;
 import com.pupasoft.nsc.airmessage.dao.MessageItemCollectionDao;
 import com.pupasoft.nsc.airmessage.manager.HttpManager;
@@ -30,7 +36,7 @@ import retrofit2.Response;
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class MessageFragment extends Fragment {
+public class MessageFragment extends Fragment implements FilterDialogFragment.FilterDialogListener{
 
     /************
      * Variable *
@@ -76,6 +82,7 @@ public class MessageFragment extends Fragment {
 
     private void init(Bundle savedInstanceState) {
         //Initialize Fragment's level
+        setHasOptionsMenu(true);
         messageListManager = new MessageListManager();
     }
 
@@ -114,6 +121,29 @@ public class MessageFragment extends Fragment {
         Call<MessageItemCollectionDao> call = HttpManager.getInstance().getService()
                 .loadMessageList(new MessageItemCollectionDao(3));  //TODO: change '3' to locationid
         call.enqueue(new MessageLoadCallback(MessageLoadCallback.MODE_LOAD));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_message, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.writeMessage) {
+            Intent intent = new Intent(Contextor.getInstance().getContext(), WriteMessageActivity.class);
+            startActivity(intent);
+            Log.d("write message", "success");
+            return true;
+        }
+        if (item.getItemId() == R.id.filterMessage) {
+            //TODO: Filter Function
+            DialogFragment filterDialog = new FilterDialogFragment();
+            filterDialog.show(getActivity().getFragmentManager(), "Filter");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -200,6 +230,11 @@ public class MessageFragment extends Fragment {
             swipeRefreshLayout.setEnabled(firstVisibleItem == 0);
         }
     };
+
+    @Override
+    public void onDialogItemClick(DialogFragment dialog) {
+        Log.d("Test Filter", "success");
+    }
 
     /***************
      * Inner class *

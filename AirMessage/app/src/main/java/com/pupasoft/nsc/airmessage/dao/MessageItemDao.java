@@ -14,6 +14,7 @@ public class MessageItemDao implements Parcelable{
     @SerializedName("name")         private String name;
     @SerializedName("locationid")   private int locationId;
     @SerializedName("statement")    private String statement;
+    @SerializedName("category")     private String category;
 
     public MessageItemDao() {
 
@@ -22,16 +23,20 @@ public class MessageItemDao implements Parcelable{
     protected MessageItemDao(Parcel in) {
         id = in.readInt();
         date = in.readString();
+        name = in.readString();
         locationId = in.readInt();
         statement = in.readString();
+        category = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(date);
+        dest.writeString(name);
         dest.writeInt(locationId);
         dest.writeString(statement);
+        dest.writeString(category);
     }
 
     @Override
@@ -89,5 +94,13 @@ public class MessageItemDao implements Parcelable{
 
     public void setStatement(String statement) {
         this.statement = statement;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
