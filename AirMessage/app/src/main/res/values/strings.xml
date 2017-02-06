@@ -9,4 +9,9 @@
         <item>Inspiration</item>
         <item>Idea</item>
     </string-array>
+    <string-array name="drawer_menu">
+        <item>Home</item>
+        <item>Location</item>
+        <item>Log out</item>
+    </string-array>
 </resources>

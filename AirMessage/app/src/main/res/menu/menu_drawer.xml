@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/drawerHome"
+            android:icon="@drawable/ic_home_drawer_menu"
+            android:title="Home"/>
+        <item android:id="@+id/drawerLocation"
+            android:icon="@drawable/ic_location_drawer_menu"
+            android:title="Location"/>
+        <item android:id="@+id/drawerLogout"
+            android:icon="@drawable/ic_logout_drawer_menu"
+            android:title="Log out"/>
+    </group>
+
+</menu>
