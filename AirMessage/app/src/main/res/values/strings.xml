@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AirMessage</string>
+    <string name="app_name">AirMessageTest</string>
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
     <string-array name="categories">
@@ -9,6 +9,11 @@
         <item>Inspiration</item>
         <item>Idea</item>
     </string-array>
+    <string name="filter_normal">Normal</string>
+    <string name="filter_feeling">Feeling</string>
+    <string name="filter_exprience">Exprience</string>
+    <string name="filter_inspiration">Inspiration</string>
+    <string name="filter_idea">Idea</string>
     <string-array name="drawer_menu">
         <item>Home</item>
         <item>Location</item>

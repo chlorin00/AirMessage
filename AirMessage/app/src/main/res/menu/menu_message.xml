@@ -2,14 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/filterMessage"
-        android:title="filter"
+    <item
+        android:id="@+id/filterMessage"
         android:icon="@drawable/ic_filter"
+        android:title="filter"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/writeMessage"
-        android:title="write"
+    <item
+        android:id="@+id/writeMessage"
         android:icon="@drawable/ic_write_message"
-        app:showAsAction="always"/>
+        android:title="write"
+        app:showAsAction="always" />
 
 </menu>

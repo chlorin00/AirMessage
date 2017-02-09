@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/filterNormal"
+        android:title="@string/filter_normal"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/filterFeeling"
+        android:title="@string/filter_feeling"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/filterExprience"
+        android:title="@string/filter_exprience"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/filterInspiration"
+        android:title="@string/filter_inspiration"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/filterIdea"
+        android:title="@string/filter_idea"
+        app:showAsAction="always" />
+</menu>

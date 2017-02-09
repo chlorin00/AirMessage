@@ -1,6 +1,5 @@
 package com.pupasoft.nsc.airmessage.fragment;
 
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import com.pupasoft.nsc.airmessage.R;
@@ -36,7 +36,7 @@ import retrofit2.Response;
 /**
  * Created by nuuneoi on 11/16/2014.
  */
-public class MessageFragment extends Fragment implements FilterDialogFragment.FilterDialogListener{
+public class MessageFragment extends Fragment {
 
     /************
      * Variable *
@@ -47,7 +47,7 @@ public class MessageFragment extends Fragment implements FilterDialogFragment.Fi
     SwipeRefreshLayout swipeRefreshLayout;
     MessageListManager messageListManager;
     Button btnNewMessage;
-
+    PopupMenu popupMenu;
     /************
      * Function *
      ************/
@@ -91,6 +91,7 @@ public class MessageFragment extends Fragment implements FilterDialogFragment.Fi
         listView = (ListView) rootView.findViewById(R.id.listView);
         btnNewMessage = (Button) rootView.findViewById(R.id.btnNewMessage);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+//        menuItemView = rootView.findViewById(R.id.filterMessage);
 
         listAdapter = new MessageListAdapter();
         listAdapter.setDao(messageListManager.getDao());
@@ -138,9 +139,10 @@ public class MessageFragment extends Fragment implements FilterDialogFragment.Fi
             return true;
         }
         if (item.getItemId() == R.id.filterMessage) {
-            //TODO: Filter Function
-            DialogFragment filterDialog = new FilterDialogFragment();
-            filterDialog.show(getActivity().getFragmentManager(), "Filter");
+            popupMenu = new PopupMenu(Contextor.getInstance().getContext(), getActivity().findViewById(R.id.filterMessage));
+            popupMenu.inflate(R.menu.menu_filter_message);
+            popupMenu.setOnMenuItemClickListener(filterMessageListener);
+            popupMenu.show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -231,9 +233,36 @@ public class MessageFragment extends Fragment implements FilterDialogFragment.Fi
         }
     };
 
-    @Override
-    public void onDialogItemClick(DialogFragment dialog) {
-        Log.d("Test Filter", "success");
+    final PopupMenu.OnMenuItemClickListener filterMessageListener = new PopupMenu.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            //TODO: Filter Function
+            switch (item.getItemId()) {
+                case R.id.filterNormal:
+                    filterMessage("Normal");
+                    return true;
+                case R.id.filterFeeling:
+                    filterMessage("Feeling");
+                    return true;
+                case R.id.filterExprience:
+                    filterMessage("Exprience");
+                    return true;
+                case R.id.filterInspiration:
+                    filterMessage("Inspiration");
+                    return true;
+                case R.id.filterIdea:
+                    filterMessage("Idea");
+                    return true;
+                default:
+                    Log.d("filter-Category", "nothing");
+                    return true;
+            }
+        }
+    };
+
+    private void filterMessage(String category) {
+        listAdapter.getFilter().filter(category);
+        Log.d("filter-Category", category + " category");
     }
 
     /***************
@@ -264,8 +293,7 @@ public class MessageFragment extends Fragment implements FilterDialogFragment.Fi
 
                 if (mode == MODE_UPDATE) {
                     messageListManager.InsertDaoAtTop(dao);
-                }
-                else {
+                } else {
                     messageListManager.setDao(dao);
                 }
                 listAdapter.setDao(messageListManager.getDao());
